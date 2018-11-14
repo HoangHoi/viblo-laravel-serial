@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
@@ -24,8 +26,15 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        dd($request->user());
-        return dd(Auth::user());
-        return view('home');
+        // User, day
+        $cacheKey = md5(vsprintf('%s.%s', [
+            'newestPosts',
+            $request->user()->id,
+        ]));
+        $minutes = 1;
+        $newestPosts = Cache::remember($cacheKey, $minutes, function () {
+            return Post::with('user')->orderBy('created_at', 'desc')->limit(10)->get();
+        });
+        return view('home', ['newestPosts' => $newestPosts]);
     }
 }
