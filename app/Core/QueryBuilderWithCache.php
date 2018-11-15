@@ -35,15 +35,10 @@ class QueryBuilderWithCache extends QueryBuilder
     {
         if ($this->cacheTime) {
             return Cache::remember($this->cacheKey(), $this->cacheTime, function () {
-                return $this->handleRunSelect();
+                return parent::runSelect();
             });
         }
 
-        return $this->handleRunSelect();
-    }
-
-    protected function handleRunSelect()
-    {
-        return $this->connection->select($this->toSql(), $this->getBindings(), !$this->useWritePdo);
+        return parent::runSelect();
     }
 }

@@ -27,21 +27,22 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         // User, day
-        $cacheKey = md5(vsprintf('%s.%s', [
-            'newestPosts',
-            $request->user()->id,
-        ]));
-        $minutes = 1;
-        $posts = Post::with([
-                'user' => function($qr) {
-                    $qr->where('name', 'Conner Auer');
-                }
-            ])
-            ->where('id', 10)
-            ->orWhere('title', 'abc')
-            ->orderBy('created_at', 'desc')
-            ->limit(10)
-            ->get();
+        // $cacheKey = md5(vsprintf('%s.%s', [
+        //     'newestPosts',
+        //     $request->user()->id,
+        // ]));
+        // $minutes = 1;
+        // $request->user()->update(['name' => 'Hoang Hoi']);
+        // $posts = Post::with([
+        //         'user' => function ($qr) {
+        //             $qr->where('name', 'Conner Auer');
+        //         },
+        //     ])
+        //     ->where('id', 10)
+        //     ->orWhere('title', 'abc')
+        //     ->orderBy('created_at', 'desc')
+        //     ->limit(10)
+        //     ->get();
 
             return '111';
         // dd($posts);
