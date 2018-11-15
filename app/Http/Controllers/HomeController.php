@@ -32,9 +32,22 @@ class HomeController extends Controller
             $request->user()->id,
         ]));
         $minutes = 1;
-        $newestPosts = Cache::remember($cacheKey, $minutes, function () {
-            return Post::with('user')->orderBy('created_at', 'desc')->limit(10)->get();
-        });
-        return view('home', ['newestPosts' => $newestPosts]);
+        $posts = Post::with([
+                'user' => function($qr) {
+                    $qr->where('name', 'Conner Auer');
+                }
+            ])
+            ->where('id', 10)
+            ->orWhere('title', 'abc')
+            ->orderBy('created_at', 'desc')
+            ->limit(10)
+            ->get();
+
+            return '111';
+        // dd($posts);
+        // $newestPosts = Cache::remember($cacheKey, $minutes, function () {
+        //     return Post::with('user')->orderBy('created_at', 'desc')->limit(10)->get();
+        // });
+        // return view('home', ['newestPosts' => $newestPosts]);
     }
 }

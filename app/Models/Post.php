@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User;
+use App\Models\User;
+use App\Models\Traits\Cacheable;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    use Cacheable;
+
+    protected $cacheTime = 1;
     protected $table = 'posts';
 
     /**

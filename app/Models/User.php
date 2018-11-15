@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Cacheable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,6 +10,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
+    use Cacheable;
+
+    protected $cacheTime = 1;
 
     /**
      * The attributes that are mass assignable.
