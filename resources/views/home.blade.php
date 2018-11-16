@@ -3,7 +3,8 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        @foreach ($newestPosts as $post)
+        {{ $posts->links() }}
+        @foreach ($posts as $post)
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header"><b>({{ $post->id }})</b> {{ $post->title }}</div>

@@ -10,7 +10,7 @@ class Post extends Model
 {
     use Cacheable;
 
-    protected $cacheTime = 1;
+    protected $cacheTime = 10;
     protected $table = 'posts';
 
     /**

@@ -33,22 +33,13 @@ class HomeController extends Controller
         // ]));
         // $minutes = 1;
         // $request->user()->update(['name' => 'Hoang Hoi']);
-        // $posts = Post::with([
-        //         'user' => function ($qr) {
-        //             $qr->where('name', 'Conner Auer');
-        //         },
-        //     ])
-        //     ->where('id', 10)
-        //     ->orWhere('title', 'abc')
-        //     ->orderBy('created_at', 'desc')
-        //     ->limit(10)
-        //     ->get();
+        $posts = Post::with(['user'])
+            ->paginate();
 
-            return '111';
         // dd($posts);
         // $newestPosts = Cache::remember($cacheKey, $minutes, function () {
         //     return Post::with('user')->orderBy('created_at', 'desc')->limit(10)->get();
         // });
-        // return view('home', ['newestPosts' => $newestPosts]);
+        return view('home', ['posts' => $posts]);
     }
 }
