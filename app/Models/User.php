@@ -12,7 +12,7 @@ class User extends Authenticatable
     use Notifiable;
     use Cacheable;
 
-    protected $cacheTime = 1;
+    protected $cacheTime = 0;
 
     /**
      * The attributes that are mass assignable.

@@ -26,8 +26,19 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $posts = Post::with('user')->orderBy('created_at', 'desc')->paginate();
+        $posts = Post::with('user')
+            ->orderBy('created_at', 'desc')
+            ->paginate();
 
         return view('home', ['posts' => $posts]);
+    }
+
+    public function post(Post $post)
+    {
+        $comments = $post->comments()->with('user')->paginate();
+        return view('post', [
+            'post' => $post,
+            'comments' => $comments,
+        ]);
     }
 }

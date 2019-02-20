@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Post;
 use App\Models\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Facades\Hash;
@@ -15,12 +16,14 @@ use Illuminate\Support\Facades\Hash;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(Post::class, function (Faker $faker) {
+    $faker->addProvider(new \Faker\Provider\Lorem($faker));
+
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
-        'password' => Hash::make('12345678'),
-        'remember_token' => str_random(10),
+        'user_id' => function () {
+            return factory(User::class)->create()->id;
+        },
+        'title' => $faker->sentence,
+        'content' => $faker->text(1000),
     ];
 });

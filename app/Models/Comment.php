@@ -2,17 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\Post;
 use App\Models\User;
-use App\Models\Comment;
 use App\Models\Traits\Cacheable;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Comment extends Model
 {
     use Cacheable;
 
     protected $cacheTime = 0;
-    protected $table = 'posts';
+    protected $table = 'comments';
 
     /**
      * The attributes that are mass assignable.
@@ -20,9 +20,9 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
-        'title',
         'content',
         'user_id',
+        'post_id',
     ];
 
     public function user()
@@ -30,8 +30,8 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function comments()
+    public function post()
     {
-        return $this->hasMany(Comment::class);
+        return $this->belongsTo(Post::class);
     }
 }
